@@ -1,4 +1,5 @@
 # Repeated-Game-Simulation
+# NOTE: PLAYER 1 AND PLAYER 2 SCORES ARE THE WRONG WAY ROUND 
 This looks at Repeated Games from Game Theory, and looks at the best strategies to win in a repeated Game.  
 Their are 3 games here:
   1. Player V Player
