@@ -56,19 +56,19 @@ def computer_strategy_always_cooperate(x):
 def computer_strategy_tit_for_tat(x):
     return x
 def computer_strategy_C(x):
-    y = False
-    y = random.choice([True,False])
-    if y == True:
+    y = 0
+    y = random.choice([0,1])
+    if y == 1:
         return x
     else:
         return "betray"
 def computer_strategy_D(x):
-    y = False
-    y = random.choice([True,False])
-    if y == True:
+    y = 0
+    y = random.choice([0,1])
+    if y == 1:
         return x
     else:
-        return "Cooperate"
+        return "cooperate"
 def computer_stratergy_Xb(x):
     bias = 0.7
     y = random.random()
