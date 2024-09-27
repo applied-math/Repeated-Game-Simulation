@@ -1,15 +1,18 @@
 import random
 
+
 def add_data(data_list, n_round, player1_score, player2_score):
     rounds = n_round
     p1 = player1_score
     p2 = player2_score
-    data_list.append({"Round" : rounds, "Player 1 Score" : p1, "Player 2 Score" : p2})
+    data_list.append({"Round": rounds, "Player 1 Score": p1, "Player 2 Score": p2})
+
 
 def display_data(data_list):
     print("\nData:")
     for entry in data_list:
         print(entry)
+
 
 def prisoner_dilemma(player1_choice, player2_choice):
     betrayal_reward = 5
@@ -26,14 +29,18 @@ def prisoner_dilemma(player1_choice, player2_choice):
     elif player1_choice == "cooperate" and player2_choice == "betray":
         return 0, temptation_reward
 
+
 def computer_strategy_random():
     return random.choice(["cooperate", "betray"])
+
 
 def computer_strategy_always_betray():
     return "betray"
 
+
 def computer_strategy_always_cooperate():
     return "cooperate"
+
 
 def main():
     data_list = []
@@ -42,7 +49,7 @@ def main():
     strategies = [
         computer_strategy_random,
         computer_strategy_always_betray,
-        computer_strategy_always_cooperate
+        computer_strategy_always_cooperate,
     ]
     print("Choose computer strategy:")
     for i, strategy in enumerate(strategies):
@@ -62,7 +69,9 @@ def main():
 
         print(f"Computer's choice: {computer_choice}")
 
-        reward_player1, reward_player2 = prisoner_dilemma(player1_choice, computer_choice)
+        reward_player1, reward_player2 = prisoner_dilemma(
+            player1_choice, computer_choice
+        )
 
         player1_score += reward_player1
         player2_score += reward_player2
@@ -73,5 +82,7 @@ def main():
     print("Final Scores:")
     print(f"Your Score: {player1_score}\tComputer's Score: {player2_score}")
     display_data(data_list)
+
+
 if __name__ == "__main__":
     main()
