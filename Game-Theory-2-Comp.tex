@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\begin{document}
+
+\begin{algorithm}
+\caption{Computer vs. Computer Prisoner's Dilemma Game Simulation}
+\begin{algorithmic}[1]
+
+\Procedure{PrisonerDilemma}{player1\_choice, player2\_choice}
+    \State Define betrayal\_reward, cooperation\_reward, temptation\_reward, punishment\_reward
+    \If{both players betray}
+        \State \Return punishment\_reward for both
+    \ElsIf{both players cooperate}
+        \State \Return cooperation\_reward for both
+    \ElsIf{player1 betrays and player2 cooperates}
+        \State \Return temptation\_reward for player1, 0 for player2
+    \ElsIf{player1 cooperates and player2 betrays}
+        \State \Return 0 for player1, temptation\_reward for player2
+    \EndIf
+\EndProcedure
+
+\Procedure{ComputerStrategyRandom}{opponent\_last\_move}
+    \State \Return random choice between "cooperate" and "betray"
+\EndProcedure
+
+\Procedure{ComputerStrategyAlwaysBetray}{opponent\_last\_move}
+    \State \Return "betray"
+\EndProcedure
+
+\Procedure{ComputerStrategyAlwaysCooperate}{opponent\_last\_move}
+    \State \Return "cooperate"
+\EndProcedure
+
+\Procedure{ComputerStrategyTitForTat}{opponent\_last\_move}
+    \State \Return opponent\_last\_move
+\EndProcedure
+
+\Procedure{ComputerStrategyC}{opponent\_last\_move}
+    \If{random chance}
+        \State \Return "betray"
+    \Else
+        \State \Return opponent\_last\_move
+    \EndIf
+\EndProcedure
+
+\Procedure{ComputerStrategyD}{opponent\_last\_move}
+    \If{random chance}
+        \State \Return "cooperate"
+    \Else
+        \State \Return opponent\_last\_move
+    \EndIf
+\EndProcedure
+
+\Procedure{ComputerStrategyXb}{opponent\_last\_move}
+    \If{random chance with 70\% bias}
+        \State \Return "betray"
+    \Else
+        \State \Return "cooperate"
+    \EndIf
+\EndProcedure
+
+\Procedure{ComputerStrategyXc}{opponent\_last\_move}
+    \If{random chance with 70\% bias}
+        \State \Return "cooperate"
+    \Else
+        \State \Return "betray"
+    \EndIf
+\EndProcedure
+
+\Procedure{Main}{}
+    \State Initialize empty data\_list
+    \State Input number of rounds
+    \State Display available computer strategies
+    \State User selects strategy for Computer 1
+    \State User selects strategy for Computer 2
+    \State Initialize player1\_score and player2\_score to 0
+    \State Set initial computer\_choice1 and computer\_choice2 to "cooperate"
+    \For{round\_num from 1 to rounds}
+        \State computer\_choice1 $\gets$ Strategy1(computer\_choice2)
+        \State computer\_choice2 $\gets$ Strategy2(computer\_choice1)
+        \State Calculate rewards using PrisonerDilemma function
+        \State Update player1\_score and player2\_score
+        \State Add round data to data\_list
+    \EndFor
+    \State Display final scores
+    \State Export data to CSV and Excel files
+\EndProcedure
+
+\Procedure{ExportData}{data\_list}
+    \State Write data\_list to CSV file
+    \State Convert data\_list to pandas DataFrame
+    \State Export DataFrame to Excel file
+    \State Display exported file locations
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}

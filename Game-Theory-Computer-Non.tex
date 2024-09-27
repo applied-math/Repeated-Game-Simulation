@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\begin{document}
+
+\title{Pseudocode for Repeated Prisoner's Dilemma Game}
+\author{}
+\date{}
+\maketitle
+
+\section*{Repeated Prisoner's Dilemma Pseudocode}
+
+\begin{algorithm}[H]
+\caption{Main Function: Repeated Game Simulation}
+\begin{algorithmic}[1]
+\STATE Initialize empty list \texttt{data\_list} for storing game data
+\STATE \textbf{Input:} Number of rounds (\texttt{rounds}) from user
+\WHILE{true} 
+    \STATE Prompt user to input a positive integer for \texttt{rounds}
+    \IF{input is valid integer and greater than 0}
+        \STATE Break loop
+    \ENDIF
+\ENDWHILE
+
+\STATE Define available strategies: \texttt{computer\_strategy\_random}, \texttt{computer\_strategy\_always\_betray}, \texttt{computer\_strategy\_always\_cooperate}
+\STATE Display strategy options to the user
+
+\WHILE{true}
+    \STATE \textbf{Input:} Choose computer strategy (\texttt{strategy}) from list
+    \IF{valid strategy is selected}
+        \STATE Break loop
+    \ENDIF
+\ENDWHILE
+
+\STATE Initialize \texttt{player1\_score} and \texttt{player2\_score} to 0
+
+\FOR{each \texttt{round\_num} from 1 to \texttt{rounds}}
+    \STATE Print current round number
+    \WHILE{true}
+        \STATE \textbf{Input:} Player 1 (human) choice, "1" for \texttt{cooperate} or "2" for \texttt{betray}
+        \IF{input is "1"}
+            \STATE Set \texttt{player1\_choice} to \texttt{cooperate}
+            \STATE Break loop
+        \ELSIF{input is "2"}
+            \STATE Set \texttt{player1\_choice} to \texttt{betray}
+            \STATE Break loop
+        \ELSE
+            \STATE Print "Invalid input. Please enter '1' or '2'."
+        \ENDIF
+    \ENDWHILE
+
+    \STATE \texttt{computer\_choice} $\gets$ Execute \texttt{strategy} function for Player 2 (computer)
+
+    \STATE Display \texttt{computer\_choice}
+
+    \STATE \texttt{reward\_player1}, \texttt{reward\_player2} $\gets$ Call \texttt{prisoner\_dilemma} with \texttt{player1\_choice}, \texttt{computer\_choice}
+
+    \STATE Update \texttt{player1\_score} by adding \texttt{reward\_player1}
+    \STATE Update \texttt{player2\_score} by adding \texttt{reward\_player2}
+
+    \STATE Print current scores for Player 1 and Computer
+
+    \STATE Append \texttt{round\_num}, \texttt{player1\_score}, \texttt{player2\_score} to \texttt{data\_list}
+
+\ENDFOR
+
+\STATE Print "Game Over!" and final scores
+\STATE Display all stored game data using \texttt{display\_data}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Prisoner's Dilemma Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{player1\_choice}, \texttt{player2\_choice}
+\STATE Set \texttt{betrayal\_reward} $\gets 5$, \texttt{cooperation\_reward} $\gets 3$
+\STATE Set \texttt{temptation\_reward} $\gets 8$, \texttt{punishment\_reward} $\gets 1$
+
+\IF{\texttt{player1\_choice} is "betray" AND \texttt{player2\_choice} is "betray"}
+    \STATE Return \texttt{punishment\_reward} for both players
+\ELSIF{\texttt{player1\_choice} is "cooperate" AND \texttt{player2\_choice} is "cooperate"}
+    \STATE Return \texttt{cooperation\_reward} for both players
+\ELSIF{\texttt{player1\_choice} is "betray" AND \texttt{player2\_choice} is "cooperate"}
+    \STATE Return \texttt{temptation\_reward} for Player 1 and 0 for Player 2
+\ELSIF{\texttt{player1\_choice} is "cooperate" AND \texttt{player2\_choice} is "betray"}
+    \STATE Return 0 for Player 1 and \texttt{temptation\_reward} for Player 2
+\ELSE
+    \STATE Print "Invalid choices" and return 0 rewards for both
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Computer Strategy Functions}
+\begin{algorithmic}[1]
+\STATE \textbf{Function:} \texttt{computer\_strategy\_random}
+    \STATE Return randomly "cooperate" or "betray"
+
+\STATE \textbf{Function:} \texttt{computer\_strategy\_always\_betray}
+    \STATE Always return "betray"
+
+\STATE \textbf{Function:} \texttt{computer\_strategy\_always\_cooperate}
+    \STATE Always return "cooperate"
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Add Data Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{data\_list}, \texttt{round\_num}, \texttt{player1\_score}, \texttt{player2\_score}
+\STATE Append \texttt{round\_num}, \texttt{player1\_score}, \texttt{player2\_score} to \texttt{data\_list}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Display Data Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{data\_list}
+\FOR{each \texttt{entry} in \texttt{data\_list}}
+    \STATE Print \texttt{entry}
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}

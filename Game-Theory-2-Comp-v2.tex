@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\begin{document}
+
+\title{Pseudocode for Repeated Prisoner's Dilemma Simulation (Computer vs Computer)}
+\author{}
+\date{}
+\maketitle
+
+\section*{Repeated Prisoner's Dilemma Pseudocode (Computer vs Computer)}
+
+\begin{algorithm}[H]
+\caption{Main Function: Run Simulation}
+\begin{algorithmic}[1]
+\STATE Initialize empty list \texttt{data\_list} for storing game data (rounds and scores)
+\STATE \textbf{Input:} Number of rounds to play, \texttt{rounds}
+\STATE Define available strategies for computers
+\STATE Print available strategies for selection
+\STATE \textbf{Input:} User selects \texttt{computer\_strategy1} for Computer 1
+\STATE \textbf{Input:} User selects \texttt{computer\_strategy2} for Computer 2
+\STATE Initialize scores for both computers: \texttt{player1\_score} and \texttt{player2\_score} to 0
+\STATE Set initial choices for both computers to "cooperate"
+
+\FOR{each \texttt{round\_num} from 1 to \texttt{rounds}}  \COMMENT{Main game loop over number of rounds}
+    \STATE \texttt{computer\_choice1} $\gets$ \texttt{computer\_strategy1(computer\_choice2)}  \COMMENT{Computer 1 decides based on strategy and opponent's last move}
+    \STATE \texttt{computer\_choice2} $\gets$ \texttt{computer\_strategy2(computer\_choice1)}  \COMMENT{Computer 2 responds similarly}
+    \STATE \texttt{reward\_player1}, \texttt{reward\_player2} $\gets$ Call \texttt{prisoner\_dilemma} with \texttt{computer\_choice1}, \texttt{computer\_choice2}
+    \STATE Update cumulative scores: \texttt{player1\_score} += \texttt{reward\_player1}, \texttt{player2\_score} += \texttt{reward\_player2}
+    \STATE Append current round data to \texttt{data\_list} using \texttt{add\_data}
+\ENDFOR
+
+\STATE Print "Game Over!" and final scores for both computers
+\STATE Export the data to CSV and Excel using \texttt{excel(data\_list)}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Prisoner's Dilemma Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{player1\_choice}, \texttt{player2\_choice}
+\STATE Define rewards: \texttt{betrayal\_reward} $\gets 5$, \texttt{cooperation\_reward} $\gets 3$, \texttt{temptation\_reward} $\gets 8$, \texttt{punishment\_reward} $\gets 1$
+\IF{\texttt{player1\_choice} is "betray" AND \texttt{player2\_choice} is "betray"}
+    \STATE Return \texttt{punishment\_reward} for both
+\ELSIF{\texttt{player1\_choice} is "cooperate" AND \texttt{player2\_choice} is "cooperate"}
+    \STATE Return \texttt{cooperation\_reward} for both
+\ELSIF{\texttt{player1\_choice} is "betray" AND \texttt{player2\_choice} is "cooperate"}
+    \STATE Return \texttt{temptation\_reward} for Player 1, and 0 for Player 2
+\ELSIF{\texttt{player1\_choice} is "cooperate" AND \texttt{player2\_choice} is "betray"}
+    \STATE Return 0 for Player 1, and \texttt{temptation\_reward} for Player 2
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Add Data Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{data\_list}, \texttt{round\_num}, \texttt{player1\_score}, \texttt{player2\_score}
+\STATE Append current round data (round number and player scores) to \texttt{data\_list}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Export Data to CSV/Excel}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{data\_list}
+\STATE Write \texttt{data\_list} to CSV file
+\STATE Write \texttt{data\_list} to Excel file using \texttt{pandas}
+\STATE Print confirmation of file creation
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Random Strategy}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Return "cooperate" or "betray" randomly
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Always Betray Strategy}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Always return "betray"
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Always Cooperate Strategy}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Always return "cooperate"
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Tit-for-Tat Strategy}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Return opponent's last action
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Strategy C (50\% chance to betray or mimic)}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Return "betray" with 50\% probability, or mimic opponent's last action
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Strategy D (50\% chance to cooperate or mimic)}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Return "cooperate" with 50\% probability, or mimic opponent's last action
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Strategy Xb (Bias towards betrayal, 70\%)}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Return "betray" with 70\% probability, or "cooperate"
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Strategy Xc (Bias towards cooperation, 70\%)}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{x} (opponent's last choice)
+\STATE Return "cooperate" with 70\% probability, or "betray"
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\begin{document}
+
+\title{Pseudocode for Repeated Prisoner's Dilemma Game (Two Human Players)}
+\author{}
+\date{}
+\maketitle
+
+\section*{Repeated Prisoner's Dilemma Pseudocode}
+
+\begin{algorithm}[H]
+\caption{Main Function: Repeated Game Simulation}
+\begin{algorithmic}[1]
+\STATE Initialize empty list \texttt{data\_list} for storing game data
+\STATE Initialize \texttt{player1\_score} and \texttt{player2\_score} to 0
+
+\FOR{each \texttt{n\_round} from 1 to \texttt{n\_rounds}}  \COMMENT{Main game loop over the number of rounds}
+    \STATE Print current round number
+    \STATE \textbf{Input:} Player 1 (human) choice, either \texttt{'cooperate'} or \texttt{'betray'}
+    \STATE \textbf{Input:} Player 2 (human) choice, either \texttt{'cooperate'} or \texttt{'betray'}
+
+    \IF{any input is invalid (not 'cooperate' or 'betray')}
+        \STATE Print "Invalid choices. Please enter 'cooperate' or 'betray'."
+        \STATE \textbf{Return} \COMMENT{End game due to invalid input}
+    \ENDIF
+
+    \STATE \texttt{player1\_reward}, \texttt{player2\_reward} $\gets$ Call \texttt{prisoner\_dilemma} with \texttt{player1\_choice}, \texttt{player2\_choice}
+
+    \STATE Print results: Player 1's and Player 2's choices, and their rewards
+
+    \STATE Update \texttt{player1\_score} and \texttt{player2\_score} by adding their respective rewards
+
+    \STATE Print updated cumulative scores for both players
+
+    \STATE Append round data to \texttt{data\_list} using \texttt{add\_data}
+
+\ENDFOR
+
+\STATE Print "Game Over!" and final scores for both players
+\STATE Display all data from \texttt{data\_list} using \texttt{display\_data}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Prisoner's Dilemma Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{player1\_choice}, \texttt{player2\_choice}
+\STATE Set \texttt{betrayal\_reward} $\gets 5$, \texttt{cooperation\_reward} $\gets 3$
+\STATE Set \texttt{temptation\_reward} $\gets 8$, \texttt{punishment\_reward} $\gets 1$
+
+\IF{\texttt{player1\_choice} is "betray" AND \texttt{player2\_choice} is "betray"}
+    \STATE Return \texttt{punishment\_reward} for both players
+\ELSIF{\texttt{player1\_choice} is "cooperate" AND \texttt{player2\_choice} is "cooperate"}
+    \STATE Return \texttt{cooperation\_reward} for both players
+\ELSIF{\texttt{player1\_choice} is "betray" AND \texttt{player2\_choice} is "cooperate"}
+    \STATE Return \texttt{temptation\_reward} for Player 1 and 0 for Player 2
+\ELSIF{\texttt{player1\_choice} is "cooperate" AND \texttt{player2\_choice} is "betray"}
+    \STATE Return 0 for Player 1 and \texttt{temptation\_reward} for Player 2
+\ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Add Data Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{data\_list}, \texttt{n\_round}, \texttt{player1\_score}, \texttt{player2\_score}
+\STATE Append \texttt{n\_round}, \texttt{player1\_score}, \texttt{player2\_score} to \texttt{data\_list}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Display Data Function}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} \texttt{data\_list}
+\FOR{each \texttt{entry} in \texttt{data\_list}}
+    \STATE Print \texttt{entry}
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}

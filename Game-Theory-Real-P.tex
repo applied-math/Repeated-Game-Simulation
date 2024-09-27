@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\begin{document}
+
+\begin{algorithm}
+\caption{Two-Player Prisoner's Dilemma Game}
+\begin{algorithmic}[1]
+
+\Procedure{PrisonerDilemma}{player1\_choice, player2\_choice}
+    \State Define betrayal\_reward, cooperation\_reward, temptation\_reward, punishment\_reward
+    \If{both players betray}
+        \State \Return punishment\_reward for both
+    \ElsIf{both players cooperate}
+        \State \Return cooperation\_reward for both
+    \ElsIf{player1 betrays and player2 cooperates}
+        \State \Return temptation\_reward for player1, 0 for player2
+    \ElsIf{player1 cooperates and player2 betrays}
+        \State \Return 0 for player1, temptation\_reward for player2
+    \EndIf
+\EndProcedure
+
+\Procedure{Main}{n\_rounds}
+    \State Initialize empty data\_list
+    \State Initialize player1\_score and player2\_score to 0
+    \For{round\_num from 1 to n\_rounds}
+        \State Display current round number
+        \State Player1 inputs choice (cooperate or betray)
+        \State Player2 inputs choice (cooperate or betray)
+        \If{invalid choices}
+            \State Display error message
+            \State \Return
+        \EndIf
+        \State Calculate rewards using PrisonerDilemma function
+        \State Display choices and rewards for both players
+        \State Update player1\_score and player2\_score
+        \State Display updated scores
+        \State Add round data to data\_list
+    \EndFor
+    \State Display "Game Over" and final scores
+    \State Display all round data
+\EndProcedure
+
+\Procedure{GameStart}{}
+    \State Input number of rounds
+    \State Call Main procedure with number of rounds
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}
